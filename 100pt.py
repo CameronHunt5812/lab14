@@ -41,14 +41,30 @@ class MyApp:
 		# This creates the drawpad - no need to change this 
 		drawpad.pack()
 		
+		def animate():
+		    tx1,ty1,tx2,ty2 = drawpad.coords(target)
+		    direction = 1
+		    drawpad.move(target,direction,0)
+		    
+	def collisionDetect(self):
+	    
+            global oval
+	    global drawpad
+            x1,y1,x2,y2 = drawpad.coords(player)
+            tx1,ty1,tx2,ty2 = drawpad.coords(target)
+            # Do your if statement - remember to return True if successful!
+            if (x1 > tx1) and (x2 < tx2) and (y1 > ty1) and (y2 < ty2):
+	       drawpad.itemconfig(target,fill="red")
+	       drawpad.after(1,self,animate)
+	       return True	    
 
-		
 	def button1Click(self, event):   
                 # "global" makes sure that we can access our oval and our drawpad
 		global oval
 		global drawpad
                 x1,y1,x2,y2 = drawpad.coords(player)
 		# Get the coords of our target
+		
 
 
 		# Ensure that we are doing our collision detection
@@ -60,15 +76,7 @@ class MyApp:
 	# Use a function to do our collision detection
 	# This way we only have to write it once, and call it from
 	# every button click function.
-	def collisionDetect(self):
-                global oval
-		global drawpad
-                x1,y1,x2,y2 = drawpad.coords(player)
-
-                # Do your if statement - remember to return True if successful!
-                
-	    
-		
+	
 myapp = MyApp(root)
 
 root.mainloop()
